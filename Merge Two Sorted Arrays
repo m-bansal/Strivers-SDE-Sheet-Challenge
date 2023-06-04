@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+vector<int> ninjaAndSortedArrays(vector<int>& num1, vector<int>& num2, int m, int n) {
+	// Write your code here.
+	vector<int> res(num1); //copy num1
+        int i=0, j=0, k=0;
+        while(i<m && j<n){
+            if (num1[i]<num2[j])
+                res[k++]=num1[i++];
+            else
+                res[k++]=num2[j++];
+        }
+        while(i<m){
+            res[k++]=num1[i++];
+        }
+        while(j<n){
+            res[k++]=num2[j++];
+        }
+        num1.swap(res);
+	return num1;
+}

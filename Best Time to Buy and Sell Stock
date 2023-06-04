@@ -1,0 +1,14 @@
+#include <bits/stdc++.h> 
+int maximumProfit(vector<int> &prices){
+    // Write your code here.   
+    vector <int> v(prices);
+    vector <int> profit;
+    int mini=v[0];
+    int p=0,cost;
+    for (auto it = v.begin() + 1; it != v.end(); it++) {
+      cost = *(it)-mini;
+      p = max(p, cost);
+      mini = min(mini, *(it));
+    }
+    return p;
+}

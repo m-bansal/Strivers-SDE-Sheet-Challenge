@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector <long long int> rows(int row){
+  long long ans=1;
+  vector<long long int> r;
+  r.push_back(1);
+  for(long long int i = 1; i<row; i++){
+    ans*=(row-i);
+    ans/=i;
+    r.push_back(ans);
+  }
+  return r;
+}
+vector<vector<long long int>> printPascal(int n) 
+{
+  // Write your code here.
+  vector<vector<long long int>> v;
+    for(long long int i =1; i<=n; i++){
+      v.push_back(rows(i));
+    }
+    return v;
+}

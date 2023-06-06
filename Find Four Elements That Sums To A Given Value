@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+
+string fourSum(vector<int> nums, int target, int n) {
+    // Write your code here.
+    vector<vector<int>> vec;
+        sort(nums.begin(),nums.end());
+        int i,j,left,right;
+        long rem;
+        for(i=0;i<n;i++){
+            for(j=i+1;j<n;j++){
+                left=j+1;
+                right=n-1;
+                long re=(nums[i]+nums[j]);
+                rem=target-re;
+                while(left<right){
+                    if((nums[left]+nums[right]) == rem){
+                        vec.push_back({nums[i],nums[j],nums[left],nums[right]});
+                        int l=nums[left];
+                        int r=nums[right];
+                        while(left<right && nums[left]==l) ++left;
+                        while(left<right && nums[right]==r) --right;
+                    }
+                    else if((nums[left]+nums[right]) > rem)
+                        right--;
+                    else
+                        left++;
+                }
+                while(j+1 < n && nums[j+1]==nums[j]) ++j;
+            }
+            while(i+1 < n && nums[i+1]==nums[i]) ++i;
+        }
+        string a = (!vec.empty())?"Yes":"No";
+        return a;        
+}

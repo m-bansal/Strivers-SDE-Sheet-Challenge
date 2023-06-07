@@ -1,0 +1,50 @@
+int index_min_ele(int nums[], int n){
+        int next,prev;
+        int start=0;
+        int end=n-1;
+        int mid;
+        while(start<=end){
+            // if(nums[start]<=nums[end]){
+            //     return start;
+            // }
+            mid = start + (end-start)/2;
+            next = (mid+1)%n;
+            prev = (mid+n-1)%n;
+            if(nums[mid]<=nums[next] && nums[mid] <= nums[prev]){
+                return mid;
+            }
+            else if(nums[mid]<=nums[end]){
+                end=mid-1;
+            }
+            else if (nums[start]<=nums[mid]){
+                start=mid+1;
+            }
+        }
+        return 0;
+    }
+    int bs(int nums[], int start, int end, int target){
+        int mid;
+        while(start<=end){
+            mid = start + (end-start)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            else if(nums[mid]<target){
+                start=mid+1;
+            }
+            else{
+                end=mid-1;
+            }
+        }
+        return -1;
+    }
+int search(int* arr, int n, int key) {
+    // Write your code here.
+        int start=0;
+        int end=n-1;
+        int mini = index_min_ele(arr, n);
+        int left=bs(arr, start, mini-1,key);
+        int right=bs(arr, mini,end,key);
+        return max(left,right);
+
+}

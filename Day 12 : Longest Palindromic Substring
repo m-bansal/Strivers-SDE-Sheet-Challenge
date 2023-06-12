@@ -1,0 +1,29 @@
+string checkpalindrome(string s, int l, int r){
+        int n=s.length();
+        while(l>=0 && r<=n && s[l]==s[r]){
+            l--;
+            r++;
+        }
+        return s.substr(l+1,r-l-1);
+    }
+
+string longestPalinSubstring(string s)
+{
+    // Write your code here.
+    string res="";
+        int n=s.length();
+        for(int i=0;i<n;i++){
+        string odd=checkpalindrome(s,i-1,i+1);
+        if(odd.size()>res.size()){ 
+            res=odd;
+        }
+        }
+        for(int i=0;i<n;i++){
+        string even=checkpalindrome(s,i-1,i);
+        if(even.size()>res.size()){
+            res=even;
+        }
+        }
+
+        return res;
+}

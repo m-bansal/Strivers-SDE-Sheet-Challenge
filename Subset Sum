@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+
+void SS(vector<int> &num, vector<int> &res, int op, int i, int n){
+
+    if(i == n){
+        res.push_back(op);
+        return;
+    }
+    SS(num,res, op,i+1,n);//reject the ele
+    SS(num,res, op+num[i],i+1,n);//pick the ele
+    return;
+}
+
+vector<int> subsetSum(vector<int> &num)
+{
+    // Write your code here.
+    int n=num.size();
+    if(n == 0){
+        return {};
+    }
+    vector<int> res;
+    SS(num, res, 0,0,n);
+    sort(res.begin(), res.end());
+    return res;
+}

@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+void SS(vector<int> num, set<vector<int>> &res, vector<int> op){
+    if(num.size() == 0){
+        sort(op.begin(), op.end()); // SO THAT [1,4,4] AND [4,1,4] DOESN'T REPEAT
+        res.insert(op);
+        return;
+    }
+    vector<int> op2;
+    // copy(op.begin(),op.end(),op2.begin());
+    for(auto it: op){
+        op2.push_back(it);
+    }
+    op2.push_back(num[0]);
+    num.erase(num.begin()+0);
+    SS(num,res, op);//reject the ele
+    SS(num,res, op2);//pick the ele
+    
+    }
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    if(n == 0){
+        return {};
+    }
+    vector<int> pset;
+    set<vector<int>> res; // TO GET ALL UNIQUE SUBSETS
+    SS(arr, res, pset);
+    vector<vector<int>> v(res.begin(), res.end());
+    return v;
+    }

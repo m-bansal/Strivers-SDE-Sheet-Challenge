@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+void CS(vector<int> &num, vector<vector<int>> &res, vector<int> op, int target, int i){
+        if(i==num.size()){
+            if(target==0){
+                res.push_back(op);
+            }
+            return;        
+        }
+    // if(accumulate(op.begin(), op.end(),0)>target){
+    //     int val=op.back();
+    //     op.pop_back();
+    //     CS(num,res, op, target+val,i+1);//reject
+    //     return;
+    // }
+    CS(num,res, op, target,i+1);
+
+    op.push_back(num[i]);
+    CS(num,res, op, target-num[i],i+1);//take ele
+    return;
+}
+
+
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+        vector<int> op;
+        vector<vector<int>> res;
+        CS(arr, res, op, k,0);     
+        return res;
+}

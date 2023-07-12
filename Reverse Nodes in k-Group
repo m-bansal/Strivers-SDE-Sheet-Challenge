@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	// Write your code here.
+	    if(head==NULL){
+            return head;
+        }
+        Node* sentinal = new Node(0);
+        sentinal->next=head;
+        vector<int> vec;
+        for(int i=0;i<n;i++)
+            vec.push_back(b[i]);
+        
+        Node *curr=head, *pre=sentinal, *nex=sentinal;//curr-first node of group, pre-prev node of (prev grp)
+        int count=0;
+        while(curr){
+            count++;
+            curr=curr->next;
+        }
+
+        while(!vec.empty() && count>=(*vec.begin())){ //iterate till u hv groups of size>=k
+            if(*vec.begin()==0){
+                vec.erase(vec.begin()+0);
+                continue;
+            }
+            curr=pre->next;//first node of grp
+            nex=curr->next;//second node of grp
+            for(int i=1;i<(*vec.begin());i++){//k-1 iterations
+                curr->next=nex->next;
+                nex->next=pre->next;
+                pre->next=nex;//next current ele
+                nex=curr->next;
+            }
+            count-=(*vec.begin());
+            vec.erase(vec.begin()+0);
+            if(vec.empty()){
+                return sentinal->next;
+            }
+            pre=curr;//last node of reversed grp
+        }
+        if(count>0 && !vec.empty()){
+            curr=pre->next;//first node of grp
+            nex=curr->next;//second node of grp
+            for(int i=1;i<count;i++){//k-1 iterations
+                curr->next=nex->next;
+                nex->next=pre->next;
+                pre->next=nex;//next current ele
+                nex=curr->next;
+            }
+        }
+        return sentinal->next;
+}
